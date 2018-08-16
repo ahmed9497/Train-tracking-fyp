@@ -1,0 +1,94 @@
+<nav class="navbar navbar-default">
+  <div class="container">
+
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-2">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Brand</a>
+    </div>
+    
+
+ 
+    <div class="collapse navbar-collapse" id="navbar-collapse-2">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Works</a></li>
+        <li><a href="#">News</a></li>
+       
+        <li><a href="#">Contact</a></li>
+        <li><a></a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+              
+              <p class="hidden-lg hidden-md">Notifications</p>
+          </a>
+          <ul class="dropdown-menu">
+              <li>
+                  <a href="#">Profile</a>
+              </li>
+              <li>
+                  <a  routerLink="../reservationform">Ticket Reservation</a>
+              </li>
+              <li>
+                <a href="#">Logout</a>
+            </li>
+              
+          </ul>
+      </li>
+      
+        
+      </ul>
+    
+    </div>
+  </div>
+</nav>
+
+  <h1 *ngFor='let pro of profile |async'>{{pro.name}}</h1>
+
+
+
+
+  <div class="content"  >
+   <div class="container-fluid">
+     <div class="row" *ngFor='let pro of profile |async'>
+       <div class="col-md-3 offset-md-3"></div>
+       <div class="col-md-6 offset-md-3">
+         <div class="card card-profile">
+           <div class="card-avatar">
+             <a href="#pablo">
+               <img class="img" src="../assets/img/faces/marc.jpg" />
+             </a>
+           </div>
+           <div class="content">
+             <h6 class="category text-gray"></h6>
+             <h4 class="card-title">{{pro.name}}</h4>
+             <p class="card-content">
+               {{pro.Address}}
+             </p>
+             <p class="card-content">
+               {{pro.Cnic}}
+             </p>
+             <p class="card-content">
+               {{pro.ContactNo}}
+             </p>
+             <p class="card-content">
+               {{pro.Experience}}
+             </p>
+          
+ 
+             <a href="#pablo" class="btn btn-primary btn-round">Follow</a>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+   </div> 
+   
+    

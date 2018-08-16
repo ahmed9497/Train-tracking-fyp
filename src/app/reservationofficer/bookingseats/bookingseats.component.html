@@ -1,0 +1,58 @@
+<!-- 
+    <div  *ngFor ="let b of array">
+            <input type="button"  value={{b}} (click)="COLOR(b.value,$event)" >
+    </div>
+<hr> -->
+<div class="grid-container">
+        <div  id="grid" *ngFor ="let b of array" class="grid-item">
+             
+                         <div *ngIf="b=='reserve'; else elseBlock">
+                                <input type="button"  value={{b}} disabled style="background-color: red;">
+
+                        </div>
+                        <ng-template #elseBlock >
+                                <input type="button"  value={{b}} (click)="saveInTempArray(b)">                               
+                        </ng-template>
+                   <!-- <input  type="button"  value={{b}} (click)="COLOR($event)">                                -->
+           
+                
+       </div>
+
+      </div>
+<!-- <div>
+ <button id="bo" *ngFor ="let b of array" (click)="COLOR()"><i class="material-icons md-48">
+        airline_seat_recline_extra
+ </i>
+</button>
+ </div> -->
+ <!-- <button >click me</button> -->
+   <!-- 
+    <div>
+            <button>
+                    <i class="material-icons md-48">
+                            airline_seat_recline_extra
+                     </i>
+                    
+            </butto
+            </div>
+    <p>thisis paragraph</p>
+    <i class="material-icons md-48">
+        airline_seat_recline_extra
+        </i> --> 
+
+
+        <div class="col-md-4">
+                <div class="card card-profile">
+                        <div class="card-header" data-background-color="purple">
+                                <h4 class="title">Seats Booking</h4>
+                                
+                              </div>
+                  <div class="content">
+                   
+                    <h4 class="card-title">Seats</h4>
+                   
+                    <a  (click)="confirmClick()" class="btn btn-primary btn-round">Follow</a>
+                  </div>
+                </div>
+        </div>
+                    

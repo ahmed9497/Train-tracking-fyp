@@ -1,0 +1,111 @@
+<div class="container-fluid">
+  <div class="main-panel">			
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+        <div class="card-header" data-background-color="purple">
+          <h4 class="title">Edit Profile</h4>
+          <p class="category">Complete your profile</p>
+        </div>
+        <div class="card-content">
+          <form  (ngSubmit)="onSubmit()">
+            <input type="hidden" name="id" [(ngModel)]="route.id" class="form-control">
+            <div class="row">
+            <div class="col-md-8">
+            <div class="form-group label-floating" >
+              <label class="control-label" style="float: left; margin-top:30px;"> Train Name </label>
+              <select *ngFor="let trainn of train" [(ngModel)]="route.train_id" name="form-control" style=" float: right; ">
+
+                             <option *ngIf="trainn.status != 'active'" value={{trainn.id}} >{{trainn.name}}</option>
+
+                
+              </select>
+            </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-8">            
+              <div class="form-group label-floating" >
+                <label  class="control-label" style="float: left; margin-top:30px;">Driver Name </label>
+                <select *ngFor="let driverss of driver" [(ngModel)]="route.driver_id" name="form-control" style=" float: right; ">
+                  <option  *ngIf="driverss.status != 'active'" value={{driverss.id}}>{{driverss.name}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-8">
+                <div class="form-group label-floating" >
+                    <label class="control-label" style="float: left; margin-top:30px;">Kitchen Runner Name </label>
+                    <select *ngFor="let kitchenrunnerr of kitchenrunner" [(ngModel)]=route.kitchenrunner_id name="form-control" style=" float: right; ">
+                      <option  *ngIf="kitchenrunnerr.status != 'active'" value="{{kitchenrunnerr.id}}">{{kitchenrunnerr.name}}</option>
+                    </select>
+                  </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-8">
+                <div class="form-group label-floating" >
+                    <label class="control-label" style="float: left; margin-top:30px;">Ticket Checker Name </label>
+                    <select *ngFor="let  ticketcheckerr of ticketchecker"  [(ngModel)]="route.ticketchecker_id" name="form-control" style=" float: right; ">
+                      <option *ngIf="ticketcheckerr.status != 'active'"  value="{{ticketcheckerr.id}}">{{ticketcheckerr.name}}</option>
+                    </select>
+                  </div>
+            </div>
+            </div>
+            <div class="row">
+            <div class="col-md-8">
+                <div class="form-group label-floating" >
+                <label class="control-label" style="float: left; margin-top:30px;">Departure </label>
+                <select  [(ngModel)]="route.trainroute_id" name="form-control" style=" float: right; ">
+                  <option *ngFor="let cities of trainroute" value="{{cities.id}}">{{cities.name}}</option>
+                </select>
+              </div>
+            </div>
+        
+              <div class="col-md-6">
+     
+
+              </div>
+          
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+                <div class="form-group label-static">
+                    <label class="control-label">Datepicker</label>
+                    <input type="date"  name="form-control" [(ngModel)]="route.date" class="datepicker form-control" value="03/12/2016" />
+                   
+                  </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary pull-right" >Update Profile</button>
+          <div class="clearfix" ></div> 
+          </form>
+        </div>
+      </div>
+      </div>
+          <div class="col-md-4">
+          <div class="card card-profile">
+            <div class="card-avatar">
+            <a href="#pablo">
+              <img class="img" src="../assets/img/faces/marc.jpg" />
+            </a>
+            </div>
+            <div class="content">
+            <h6 class="category text-gray">CEO / Co-Founder</h6>
+            <h4 class="card-title">Alec Thompson</h4>
+            <p class="card-content">
+              Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+            </p>
+            <a href="#pablo" class="btn btn-primary btn-round">Follow</a>
+            </div>
+          </div>
+          </div>
+        </div>
+        </div>
+      </div>
+      </div>
+      </div>
+    
