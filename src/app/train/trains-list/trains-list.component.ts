@@ -38,10 +38,8 @@ reset(){
     Engine_No : '',
     Bogies : '',
     Seats : '',
-    Economy_seats : '',
-    Business_class : '',
-    Destination : '',
-    Source : '',
+    Longitude : '',
+    Latitude :'',
   }
 
   this.trainservice.updatetrainTransfer(this.train);

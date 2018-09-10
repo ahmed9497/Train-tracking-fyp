@@ -59,7 +59,8 @@ export class RouteComponent implements OnInit {
       ticketchecker_id : this.routeU.ticketchecker_id,
       kitchenrunner_id : this.routeU.kitchenrunner_id,
       trainroute_id : this.routeU.trainroute_id,
-      date : this.routeU.date
+      date : this.routeU.date,
+      reserved_seats : this.routeU.reserved_seats,
       }
     }
 

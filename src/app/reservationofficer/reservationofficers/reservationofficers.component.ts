@@ -24,15 +24,15 @@ export class ReservationofficersComponent implements OnInit {
       this.reservationofficer = {   
         id : this.reservationofficerU.id,
         name : this.reservationofficerU.name,
-        Cnic : '',
-        ContactNo : '',
-        Experience : '',
-        Skills : '',
-        Education : '',
-        BranchName : '',
-        Address : '',
-        Email : '',
-        Password : '',
+        Cnic : this.reservationofficerU.Cnic,
+        ContactNo : this.reservationofficerU.ContactNo,
+        Experience : this.reservationofficerU.Experience,
+        Skills : this.reservationofficerU.Skills,
+        Education : this.reservationofficerU.Education,
+        BranchName : this.reservationofficerU.BranchName,
+        Address : this.reservationofficerU.Address,
+        Email : this.reservationofficerU.Email,
+        Password : this.reservationofficerU.Password,
       }
   }
 

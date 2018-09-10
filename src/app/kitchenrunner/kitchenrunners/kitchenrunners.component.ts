@@ -25,15 +25,14 @@ export class KitchenrunnersComponent implements OnInit {
       this.kitchenrunner = {   
         id : this.kitchenrunnerU.id,
         name : this.kitchenrunnerU.name,
-        Cnic : '',
-        ContactNo: '',
-        Experience : '',
-        BestReceipe : '',
-        Address : '',
-        Email : '',
-        Password : '',
+        Cnic :  this.kitchenrunnerU.Cnic,
+        ContactNo: this.kitchenrunnerU.ContactNo,
+        Experience :  this.kitchenrunnerU.Experience,
+        BestReceipe :  this.kitchenrunnerU.BestReceipe,
+        Address :  this.kitchenrunnerU.Address,
+        Email :  this.kitchenrunnerU.Email,
+        Password :  this.kitchenrunnerU.Password,
       }
-
 
   }
 

@@ -24,14 +24,13 @@ export class TrainsComponent implements OnInit {
       this.train = {   
         id : this.trainU.id,
         name : this.trainU.name,
-        Train_No : '',
-        Engine_No : '',
-        Bogies : '',
-        Seats : '',
-        Economy_seats : '',
-        Business_class : '',
-        Destination : '',
-        Source : '',
+        Train_No : this.trainU.Train_No,
+        Engine_No : this.trainU.Engine_No,
+        Bogies : this.trainU.Bogies,
+        Seats : this.trainU.Seats,
+        Longitude :this.trainU.Longitude,
+        Latitude:this.trainU.Latitude,
+       
       }
 
   }

@@ -24,23 +24,25 @@ export class DriversComponent implements OnInit {
 
   ngOnInit() {
     
-      this.driverservice.cast.subscribe(driverr => 
+      this.driverservice.castdriver.subscribe(driverr => 
       this.driverU = driverr
+  
       );
       this.driver = {   
         id : this.driverU.id, 
         name : this.driverU.name,
         Cnic : this.driverU.Cnic,
-        ContactNo: '',
-        Experience : '',
-        LicenseNo : '',
-        Education : '',
-        LicenseExpiryDate : '',
-        Address : '',
-        Email : '',
-        Password : ''
+        ContactNo:  this.driverU.ContactNo,
+        Experience :  this.driverU.Experience,
+        LicenseNo :  this.driverU.LicenseNo,
+        Education : this.driverU.Education,
+        LicenseExpiryDate :  this.driverU.LicenseExpiryDate,
+        Address :  this.driverU.Address,
+        Email :  this.driverU.Email,
+        Password :  this.driverU.Password,
       }
-  }
+      debugger;
+    }
 
    onSubmit(){    
      if( this.driver.id == ''){
@@ -53,7 +55,7 @@ export class DriversComponent implements OnInit {
 
       this.driverservice.updateDriver(this.driver);
       this.toastr.success("successfully Updated","Congratulation");
-      this.route.navigate(['driverlist']);
+     // this.route.navigate(['driverlist']);
       
      }
    }

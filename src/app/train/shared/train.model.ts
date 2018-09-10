@@ -5,8 +5,6 @@ export class Train {
     Engine_No? : string;
     Bogies? : string;
     Seats? : string;
-    Economy_seats? : string;
-    Business_class? : string;
-    Destination? : string;
-    Source? : string;
+    Longitude? : string;
+    Latitude? : string;
 }

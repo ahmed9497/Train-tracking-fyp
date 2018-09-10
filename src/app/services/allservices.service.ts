@@ -61,7 +61,7 @@ export class AllservicesService implements OnInit,OnChanges{
 
   private Updatedriver = new BehaviorSubject<any>('');
 
-  cast = this.Updatedriver.asObservable();
+  castdriver = this.Updatedriver.asObservable();
 
   kitchenrunnerlistCollection: AngularFirestoreCollection<Kitchenrunner>;
 
@@ -362,7 +362,7 @@ export class AllservicesService implements OnInit,OnChanges{
       (changes => {
         return changes.map(a => {
           const data = a.payload.doc.data() as Driver;
-          const id = a.payload.doc.id;
+          data.id = a.payload.doc.id;
           return data;
         });
       });
@@ -587,6 +587,7 @@ export class AllservicesService implements OnInit,OnChanges{
       return changes.map(a => {
         //here you get the data without first names
         const data = a.payload.doc.data() as Route;
+        data.id = a.payload.doc.id;
         const id = a.payload.doc.id;
         const trains = data.train_id;
         const drivers = data.driver_id;

@@ -52,6 +52,7 @@ reset(){
     kitchenrunner_id : '',
     trainroute_id:'',
     date : '',
+    reserved_seats : [],
   }
 
   this.routeservice.updaterouteTransfer(this.route);

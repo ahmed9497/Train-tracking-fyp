@@ -12,5 +12,6 @@ export interface Route{
     Kitchenchecker_name? : string;
     ticketchecker_name? : string;
     trainroute_name? : string;
+    reserved_seats? : any;
 
 }

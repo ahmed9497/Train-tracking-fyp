@@ -22,14 +22,14 @@ export class TicketcheckersComponent implements OnInit {
       this.ticketchecker = {   
         id : this.ticketcheckerU.id,
         name : this.ticketcheckerU.name,
-        Cnic : '',
-        ContactNo: '',
-        Experience : '',
-        Skills : '',
-        Education : '',
-        Address : '',
-        Email : '',
-        Password : '',
+        Cnic : this.ticketcheckerU.Cnic,
+        ContactNo: this.ticketcheckerU.ContactNo,
+        Experience : this.ticketcheckerU.Experience,
+        Skills : this.ticketcheckerU.Skills,
+        Education : this.ticketcheckerU.Education,
+        Address : this.ticketcheckerU.Address,
+        Email : this.ticketcheckerU.Email,
+        Password : this.ticketcheckerU.Password,
       }
 
   }
