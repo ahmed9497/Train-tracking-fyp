@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AllservicesService } from '../services/allservices.service';
-import { timingSafeEqual } from 'crypto';
-import { ValueTransformer } from '../../../node_modules/@angular/compiler/src/util';
-import { LatLngBounds } from '../../../node_modules/@agm/core';
-import { Observable } from '../../../node_modules/rxjs';
+import { Observable } from 'rxjs/Observable';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 
-
+import { Train } from '../train/shared/train.model';
 @Component({
   selector: 'app-maindash',
   templateUrl: './maindash.component.html',
@@ -20,21 +18,24 @@ export class MaindashComponent implements OnInit {
   public origin: {}
   public destination: {}
   icon: string = "assets/images/icon.png";
-  routemarker :any[];
+  routemarker :any[]; markers :Train[];
+  stationId:any;
   //city_name: any[];
   a:any[];
   public mstation:any[];
-  constructor(private service: AllservicesService) {
-
+  cities:any;
+  name:'';
+  constructor(private service: AllservicesService,private afs: AngularFirestore) {
+    //this.service.GetDoc();  
+    this.GetCities();
   }
 
   ngOnInit() {
      this.getUserLocation();
     this.getDirection();
-
+    
      this.GetRoutemarker();
- 
-
+     
   }
   // choselocation(event) {
   //   console.log(event);
@@ -125,43 +126,50 @@ export class MaindashComponent implements OnInit {
     // this.origin = 'Taipei Main Station'
     // this.destination = 'Taiwan Presidential Office'
   }
-  clickedMarker(label: string, index: number) {
-    console.log(`clicked the marker: ${label}--${index}`)
+
+  clickedMarker(label: string, id: number) {
+    console.log(`clicked the marker: ${label}--${id}`);
+    this.stationId=id;
+    this.service.GetDoc(this.stationId);
   }
 
   city_name : any = [];
+ 
   GetRoutemarker() {
-    this.service.getTrainRoutes().forEach(element => {
-      console.log(element);
-    });
-    this.routemarker=this.service.getdataofroute();
-    console.log("route marker array ="+this.routemarker);
+    // this.service.getTrainsMarkers().forEach(element => {
+    //   console.log(element);
+    // });
+    // this.routemarker=this.service.getdataofroute();
+    // console.log("route marker array ="+this.routemarker);
     
-    this.city_name = this.service.getdataofcity_name();
-    this.city_name.forEach(value =>  {
-      console.log("this is value of city_name"+value);
-    });
-    this.routemarker = this.service.getdataofroute();
+    // this.city_name = this.service.getdataofcity_name();
+    // this.city_name.forEach(value =>  {
+    //   console.log("this is value of city_name"+value);
+    // });
+    // this.routemarker = this.service.getdataofroute();
     
       // console.log(this.city_name[1]);
+      this.service.getTrainData().subscribe(items => {
+        this.markers = items;
+        console.log(this.markers);
+      
+    });
     
     
     
   }
 
  arr:any = [];
-  addStation(value?){
-
+  addStation(){
+    console.log("clicked" +this.name);
     // this.service.UpdateStations();
 
-    console.log("update is called");
-    
-    console.log("new sttion value = "+value);
-    
+    //this.service.GetDoc();
  
    // this.arr = this.service.get_cities_station();
 
-    this.service.MoreStation().subscribe(i =>this.mstation = i );
+    this.service.Gotid().subscribe(i =>this.mstation = i );
+    console.log("ahmed"+this.mstation);
     this.arr = this.service.get_cities_station();
     // this.mstation.forEach(value=>{
     //   console.log(value);
@@ -172,11 +180,11 @@ export class MaindashComponent implements OnInit {
       console.log(element);
       ///this.a.push(element);
     });
-    this.a=this.arr;
-  this.a.push("N8GH891UB2XhtU0vvEQz");
-  this.service.UpdateStations(this.a);
+    
   },2000);
-  
+  this.a=this.arr;
+  this.a.push(this.name);
+  this.service.UpdateStations(this.a);
  
     // this.arr.forEach(value=>{
     //   console.log(value);
@@ -187,10 +195,18 @@ export class MaindashComponent implements OnInit {
      
     // });
     
-    ;
+    
     //console.log(this.mstation[0]);
   }
-
+GetCities(){
+  let a;
+  a=this.service.getcityData().
+  subscribe(i=>{
+    console.log("cities "+i);
+    this.cities=i;
+    console.log("cities "+this.cities);
+  });
+}
 
 
 

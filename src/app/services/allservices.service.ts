@@ -27,6 +27,7 @@ import { mergeMap } from 'rxjs/operator/mergeMap';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 import { TrainRouteModel } from '../train/shared/trainroutemodel.model';
 import { SELECT_VALUE_ACCESSOR } from '../../../node_modules/@angular/forms/src/directives/select_control_value_accessor';
+import { forEach } from '@angular/router/src/utils/collection';
 
 
 
@@ -121,6 +122,7 @@ export class AllservicesService implements OnInit,OnChanges{
   date: Date;
   Trainroutes: AngularFirestoreCollection<any>;
   public  g : any;
+  tr_id;
   constructor(private firebase: AngularFireDatabase, private fs: AngularFirestore, private route: Router) {
     this.driverlistCollection = this.fs.collection('drivers');
     this.trainlistCollection = this.fs.collection('trains');
@@ -131,6 +133,7 @@ export class AllservicesService implements OnInit,OnChanges{
     this.reservationofficerlistCollection = this.fs.collection('reservationofficer');
     this.trainroutelistCollection = this.fs.collection('trainroutes');
     this.Trainroutes = this.fs.collection('trainroutes');
+    
   }
   ngOnChanges(){
    this.MoreStation();
@@ -138,65 +141,69 @@ export class AllservicesService implements OnInit,OnChanges{
   ngOnInit(){
     this.getIfDriverData();
    // this.UpdateStations();
+  
+   
   }
   
   tr: Observable<any[]>;
   trr: any[] = [];
   trrr: any = [];
   onlyRoute:Observable<any[]>;
-  getTrainRoutes() {
-    //  this.tr=this.Trainroutes.stateChanges().map(changes=>{
-    //    return changes.map(a=>{
-    //     const data = a.payload.doc.data();
-    //     data.id = a.payload.doc.id;
-    //     return data;
-    //    });
-    // });
-    // return this.tr;
-    var date =new Date();
-    let year=date.getFullYear();
-    let month=("0" + (date.getMonth() + 1)).slice(-2);
-    let day=("0" + date.getDate()).slice(-2);
-    console.log("GET Train route dates "+year+" Month "+month+" DAy "+day);
+  // getTrainRoutes() {
+  //   //  this.tr=this.Trainroutes.stateChanges().map(changes=>{
+  //   //    return changes.map(a=>{
+  //   //     const data = a.payload.doc.data();
+  //   //     data.id = a.payload.doc.id;
+  //   //     return data;
+  //   //    });
+  //   // });
+  //   // return this.tr;
+  //   var date =new Date();
+  //   let year=date.getFullYear();
+  //   let month=("0" + (date.getMonth() + 1)).slice(-2);
+  //   let day=("0" + date.getDate()).slice(-2);
+  //   console.log("GET Train route dates "+year+" Month "+month+" DAy "+day);
 
-    this.tr = this.fs.collection('route', ref =>
-      ref.where('date', '==',`${year}-${month}-${day}` )).snapshotChanges().map(changes => {
-        return changes.map(action => {
-          const data = action.payload.doc.data() as TRY;
-          const tr_id = data.trainroute_id;
-          // return data;
+  //   this.tr = this.fs.collection('route', ref =>
+  //     ref.where('date', '==',`${year}-${month}-${day}` )).snapshotChanges().map(changes => {
+  //       return changes.map(action => {
+  //         const data = action.payload.doc.data() as TRY;
+  //         const tr_id = data.trainroute_id;
+  //         // return data;
 
-          return this.trainroutelistCollection.doc(tr_id).snapshotChanges().map(actions => {
+  //         return this.trainroutelistCollection.doc(tr_id).snapshotChanges().map(actions => {
 
-            const data1 = actions.payload.data();
+  //           const data1 = actions.payload.data();
 
-            const data2 = data1.stations.forEach(element => {
+  //           const data2 = data1.stations.forEach(element => {
 
-              return this.citylistCollection.doc(element).snapshotChanges().subscribe(actions => {
-                console.log(actions.payload.data());
+  //             return this.citylistCollection.doc(element).snapshotChanges().subscribe(actions => {
+  //               console.log(actions.payload.data());
 
                 
-                const data5 = actions.payload.data();
-                const id = data5.city_name;
-                this.trr.push(actions.payload.data());
-                this.trrr.push(id);
+  //               const data5 = actions.payload.data();
+  //               const id = data5.city_name;
+  //               this.trr.push(actions.payload.data());
+  //               this.trrr.push(id);
 
-                return actions.payload.data();
+  //               return actions.payload.data();
 
-              });
+  //             });
 
-            });
+  //           });
 
-            return data2;
+  //           return data2;
 
-          });
-        });
-      }).mergeMap(feeds => (Observable.combineLatest(feeds)));
+  //         });
+  //       });
+  //     }).mergeMap(feeds => (Observable.combineLatest(feeds)));
       
-    return this.tr;
+  //   return this.tr;
 
-  }
+  // }
 
+    
+ 
   getdataofroute() {
 
     return this.trr;
@@ -749,10 +756,10 @@ export class AllservicesService implements OnInit,OnChanges{
   MoreStation(value?):any{
     //console.log("sation valuein service"+value );
     this.station =  this.fs.collection('trainroutes', ref =>
-    ref.where('destination', '==','236' )).snapshotChanges().map(changes=>{
+    ref.where('name', '==','Karachi-Express(lahore-karachi)' )).snapshotChanges().map(changes=>{
     return changes.map(a=>{
-     // const data=a.payload.doc.data();
-      //data.lat=a.payload.doc.data().long;
+      console.log(a.payload.doc.data());
+     
      const data = a.payload.doc.data();
       data.id=a.payload.doc.id;
       data.stations.forEach(element => {
@@ -771,6 +778,7 @@ export class AllservicesService implements OnInit,OnChanges{
     // });
      // console.log(this.g);
      console.log(this.cities_station);
+     
     return this.station;
    
   }
@@ -790,8 +798,100 @@ export class AllservicesService implements OnInit,OnChanges{
 UpdateStations(array){
   //let array=["amjac","adas","asdads","rrrty"]
  console.log(array);
-  this.fs.collection('trainroutes').doc('eimLNgMP80o0mutjz6Wf')
+  this.fs.collection('trainroutes').doc('B9l63nwEMMzABcng5Mbr')
   
   .update({ stations: array});
 }
+
+
+
+GetDoc(value?){
+  // console.log("get doc is called by add astatitnk");
+  //  this.trainlistCollection.doc('2c7Dz3ETJwBJg3oQwrvh').
+  //  valueChanges().subscribe(i=>{console.log(i)});
+  console.log("Getid id "+value);
+  
+  
+  this.station =  this.fs.collection('route', ref =>
+  ref.where('train_id', '==',value )).snapshotChanges().map(changes=>{
+  return changes.map(a=>{
+    console.log(a.payload.doc.data().trainroute_id);
+    
+     this.tr_id=a.payload.doc.data().trainroute_id;
+      //this.Gotid(id);
+      console.log("Trainroutd id in getDoc"+this.tr_id); 
+  }); 
+  });
+
+  this.station.subscribe(i=>{
+    console.log(i); 
+  });    
+   
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+}
+    s:Observable<any>;
+    Gotid():any{
+      //this.cities_station=[];
+      console.log("Trainroutd id in Gotid"+this.tr_id); 
+      // this.trainroutelistCollection.doc(value).
+      //   valueChanges().subscribe(i=>{console.log(i)});
+      
+      this.s =  this.fs.collection('trainroutes').doc(this.tr_id).snapshotChanges().map(a=>{
+        
+          console.log(a.payload.data());
+          //data.lat=a.payload.doc.data().long;
+        const data = a.payload.data();
+          data.id=a.payload.id;
+        
+          console.log("stations are 0 index  "+data.stations[0]);
+          data.stations.forEach(element => {
+            console.log(element);
+            this.cities_station.push(element);
+          });
+          
+          console.log("cities arra "+this.cities_station);
+          
+          return data.station;
+        }); 
+        
+        console.log(this.station);
+        // this.station.forEach(value=>{
+        //   console.log("Data from firestore"+value);
+        // });
+        console.log(this.g);
+        console.log(this.cities_station);
+        
+        return this.s;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
 }

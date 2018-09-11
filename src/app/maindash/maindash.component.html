@@ -138,6 +138,7 @@
                   </div>
               </div>
           </div>
+          
           <h1>Angular Google Maps (AGM) Demo</h1>
           <p><a href="https://angular-maps.com/" target="_blank">Official Website</a></p>
           
@@ -150,15 +151,15 @@
             >
           
             <agm-marker 
-                *ngFor="let m of routemarker; let i = index"
-                (markerClick)="clickedMarker(m.city_name, i)"
-                [latitude]="m.lat"
-                [longitude]="m.lng"
-                [label]="m.city_name"
+                *ngFor="let m of markers; let i = index"
+                (markerClick)="clickedMarker(m.name, m.id)"
+                [latitude]="m.Latitude"
+                [longitude]="m.Longitude"
+                [label]="m.name"
             >
                 
               <agm-info-window>
-                <strong>{{m.city_name}}
+                <strong>{{m.name}}
                  
                 </strong>
                 <a (click)="removeMarker(m)">Delete</a>
@@ -183,13 +184,25 @@
               <input type="text" #station name="newstation" value="lahore" >
               <button class="btn btn-round" (click)="addStation(station.value)">Add</button>
           </div>
+          <div class="row">
+            <div class="col-md-8">            
+              <div class="form-group label-floating" >
+                <label  class="control-label" style="float: left; margin-top:30px;">Select Station to Add </label>
+                <select  name="form-control" [(ngModel)]="name" style=" float: right; ">
+                  <option *ngFor="let l of cities"  [ngValue]="l.id" name="newstation">{{l.station_name}}</option>
+                </select>
+                <button class="btn btn-round" style=" float: right; " (click)="addStation(station.value)">Add</button>
+          
+              </div>
+            </div>
+          </div>
           <ul>
-            <li *ngFor="let l of a ">
-                <!-- {{l.city_name}}
+            <li *ngFor="let l of cities ">
+                {{l.city_name}}
                 {{l.lat}}
                 {{l.lng}} 
-               {{l.name}}-->
-               {{l}}
+               {{l.name}}
+              {{l.id}}
             </li>
             
         </ul>
